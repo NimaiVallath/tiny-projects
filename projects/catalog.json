@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "slug": "commit-canvas",
+    "title": "Commit Canvas",
+    "date": "2026-09-10",
+    "summary": "Turn any phrase or commit message into deterministic generative SVG art.",
+    "path": "projects/001-commit-canvas",
+    "stack": ["Python", "SVG", "hashing"],
+    "status": "complete"
+  }
+]
