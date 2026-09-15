@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="720" viewBox="0 0 1100 720" role="img" aria-labelledby="title description">
+  <title id="title">Time Loom · A maker&apos;s Tuesday</title>
+  <desc id="description">A 24-hour clock with colored schedule segments, category totals, and an hourly activity rhythm. Build 5h 20m, explore 1h 30m, connect 1h 20m, restore 2h 40m. Longest uninterrupted build block: 2h 30m.</desc>
+  <defs>
+    <style>
+      .small { fill: #b9b2ae; font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 2px; }
+      .number { fill: #faf0e6; font: 15px ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .heading { fill: #faf0e6; font: 600 28px ui-sans-serif, system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="1100" height="720" rx="25" fill="#171c23" />
+  <circle cx="326" cy="350" r="294" fill="#202730" stroke="#faf0e6" stroke-opacity=".08" />
+  <text x="70" y="71" class="small">TIME LOOM / A DAY IN COLOUR</text>
+  <text x="676" y="103" class="small">A CIRCULAR STORY OF TIME</text>
+  <text x="676" y="153" class="heading">A maker&apos;s Tuesday</text>
+  <text x="676" y="194" class="small">WHERE THE DAY WENT</text>
+  <circle cx="326" cy="350" r="212" fill="none" stroke="#faf0e6" stroke-opacity=".07" stroke-width="39" />
+  <g>
+      <path d="M 521.86 431.13 A 212 212 0 0 1 504.80 463.91" stroke="#a7c9a4" stroke-width="39" fill="none" stroke-linecap="butt"><title>07:30–08:10 · Breakfast &amp; a slow start · 40m</title></path>
+      <path d="M 504.80 463.91 A 212 212 0 0 1 398.51 549.21" stroke="#e9aa70" stroke-width="39" fill="none" stroke-linecap="butt"><title>08:10–10:40 · Prototype the idea · 2h 30m</title></path>
+      <path d="M 398.51 549.21 A 212 212 0 0 1 362.81 558.78" stroke="#d5b8e5" stroke-width="39" fill="none" stroke-linecap="butt"><title>10:40–11:20 · Team conversation · 40m</title></path>
+      <path d="M 362.81 558.78 A 212 212 0 0 1 326.00 562.00" stroke="#a9cdd1" stroke-width="39" fill="none" stroke-linecap="butt"><title>11:20–12:00 · Research a new approach · 40m</title></path>
+      <path d="M 326.00 562.00 A 212 212 0 0 1 271.13 554.78" stroke="#a7c9a4" stroke-width="39" fill="none" stroke-linecap="butt"><title>12:00–13:00 · Lunch &amp; a walk · 1h 00m</title></path>
+      <path d="M 271.13 554.78 A 212 212 0 0 1 196.94 518.19" stroke="#e9aa70" stroke-width="39" fill="none" stroke-linecap="butt"><title>13:00–14:30 · Shape the interaction · 1h 30m</title></path>
+      <path d="M 196.94 518.19 A 212 212 0 0 1 169.70 493.23" stroke="#d5b8e5" stroke-width="39" fill="none" stroke-linecap="butt"><title>14:30–15:10 · Review with a peer · 40m</title></path>
+      <path d="M 169.70 493.23 A 212 212 0 0 1 130.14 431.13" stroke="#e9aa70" stroke-width="39" fill="none" stroke-linecap="butt"><title>15:10–16:30 · Test &amp; refine · 1h 20m</title></path>
+      <path d="M 121.22 404.87 A 212 212 0 0 1 114.20 359.25" stroke="#a9cdd1" stroke-width="39" fill="none" stroke-linecap="butt"><title>17:00–17:50 · Sketch a fresh concept · 50m</title></path>
+      <path d="M 114.00 350.00 A 212 212 0 0 1 121.22 295.13" stroke="#a7c9a4" stroke-width="39" fill="none" stroke-linecap="butt"><title>18:00–19:00 · Cook dinner · 1h 00m</title></path>
+  </g>
+  <g><line x1="326.0" y1="104.0" x2="326.0" y2="85.0" stroke="#aaa4a0" stroke-opacity=".65" />
+      <line x1="389.7" y1="112.4" x2="392.0" y2="103.7" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="449.0" y1="137.0" x2="453.5" y2="129.2" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="499.9" y1="176.1" x2="506.3" y2="169.7" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="539.0" y1="227.0" x2="546.8" y2="222.5" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="563.6" y1="286.3" x2="572.3" y2="284.0" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="572.0" y1="350.0" x2="591.0" y2="350.0" stroke="#aaa4a0" stroke-opacity=".65" />
+      <line x1="563.6" y1="413.7" x2="572.3" y2="416.0" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="539.0" y1="473.0" x2="546.8" y2="477.5" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="499.9" y1="523.9" x2="506.3" y2="530.3" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="449.0" y1="563.0" x2="453.5" y2="570.8" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="389.7" y1="587.6" x2="392.0" y2="596.3" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="326.0" y1="596.0" x2="326.0" y2="615.0" stroke="#aaa4a0" stroke-opacity=".65" />
+      <line x1="262.3" y1="587.6" x2="260.0" y2="596.3" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="203.0" y1="563.0" x2="198.5" y2="570.8" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="152.1" y1="523.9" x2="145.7" y2="530.3" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="113.0" y1="473.0" x2="105.2" y2="477.5" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="88.4" y1="413.7" x2="79.7" y2="416.0" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="80.0" y1="350.0" x2="61.0" y2="350.0" stroke="#aaa4a0" stroke-opacity=".65" />
+      <line x1="88.4" y1="286.3" x2="79.7" y2="284.0" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="113.0" y1="227.0" x2="105.2" y2="222.5" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="152.1" y1="176.1" x2="145.7" y2="169.7" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="203.0" y1="137.0" x2="198.5" y2="129.2" stroke="#aaa4a0" stroke-opacity=".28" />
+      <line x1="262.3" y1="112.4" x2="260.0" y2="103.7" stroke="#aaa4a0" stroke-opacity=".28" /></g>
+  <text x="326" y="105" text-anchor="middle" class="small">00</text>
+  <text x="598" y="356" text-anchor="middle" class="small">06</text>
+  <text x="326" y="608" text-anchor="middle" class="small">12</text>
+  <text x="54" y="356" text-anchor="middle" class="small">18</text>
+  <text x="326" y="321" text-anchor="middle" class="small">RECORDED</text>
+  <text x="326" y="376" text-anchor="middle" fill="#faf0e6" font-family="ui-sans-serif, system-ui, sans-serif" font-size="51" font-weight="600">10h 50m</text>
+  <text x="326" y="409" text-anchor="middle" class="small">OF 24 HOURS</text>
+  <g transform="translate(676 245)">
+      <text y="-9" class="small">BUILD</text>
+      <text x="333" y="-9" text-anchor="end" class="number">5h 20m</text>
+      <rect y="9" width="333" height="12" rx="6" fill="#ffffff" fill-opacity=".08" />
+      <rect y="9" width="333.0" height="12" rx="6" fill="#e9aa70" />
+    </g>
+    <g transform="translate(676 316)">
+      <text y="-9" class="small">EXPLORE</text>
+      <text x="333" y="-9" text-anchor="end" class="number">1h 30m</text>
+      <rect y="9" width="333" height="12" rx="6" fill="#ffffff" fill-opacity=".08" />
+      <rect y="9" width="93.7" height="12" rx="6" fill="#a9cdd1" />
+    </g>
+    <g transform="translate(676 387)">
+      <text y="-9" class="small">CONNECT</text>
+      <text x="333" y="-9" text-anchor="end" class="number">1h 20m</text>
+      <rect y="9" width="333" height="12" rx="6" fill="#ffffff" fill-opacity=".08" />
+      <rect y="9" width="83.3" height="12" rx="6" fill="#d5b8e5" />
+    </g>
+    <g transform="translate(676 458)">
+      <text y="-9" class="small">RESTORE</text>
+      <text x="333" y="-9" text-anchor="end" class="number">2h 40m</text>
+      <rect y="9" width="333" height="12" rx="6" fill="#ffffff" fill-opacity=".08" />
+      <rect y="9" width="166.5" height="12" rx="6" fill="#a7c9a4" />
+    </g>
+  <line x1="676" y1="549" x2="1010" y2="549" stroke="#faf0e6" stroke-opacity=".12" />
+  <text x="676" y="582" class="small">ACTIVITY RHYTHM / 06–22</text>
+  <rect x="677" y="631.0" width="12" height="0.0" rx="3" fill="#a9cdd1" fill-opacity=".18"><title>06:00 · 0 active minutes</title></rect>
+    <rect x="698" y="608.0" width="12" height="23.0" rx="3" fill="#a9cdd1" fill-opacity=".88"><title>07:00 · 30 active minutes</title></rect>
+    <rect x="719" y="585.0" width="12" height="46.0" rx="3" fill="#e9aa70" fill-opacity=".88"><title>08:00 · 60 active minutes</title></rect>
+    <rect x="740" y="585.0" width="12" height="46.0" rx="3" fill="#e9aa70" fill-opacity=".88"><title>09:00 · 60 active minutes</title></rect>
+    <rect x="761" y="585.0" width="12" height="46.0" rx="3" fill="#e9aa70" fill-opacity=".88"><title>10:00 · 60 active minutes</title></rect>
+    <rect x="782" y="585.0" width="12" height="46.0" rx="3" fill="#e9aa70" fill-opacity=".88"><title>11:00 · 60 active minutes</title></rect>
+    <rect x="803" y="585.0" width="12" height="46.0" rx="3" fill="#e9aa70" fill-opacity=".88"><title>12:00 · 60 active minutes</title></rect>
+    <rect x="824" y="585.0" width="12" height="46.0" rx="3" fill="#e9aa70" fill-opacity=".88"><title>13:00 · 60 active minutes</title></rect>
+    <rect x="845" y="585.0" width="12" height="46.0" rx="3" fill="#e9aa70" fill-opacity=".88"><title>14:00 · 60 active minutes</title></rect>
+    <rect x="866" y="585.0" width="12" height="46.0" rx="3" fill="#e9aa70" fill-opacity=".88"><title>15:00 · 60 active minutes</title></rect>
+    <rect x="887" y="608.0" width="12" height="23.0" rx="3" fill="#a9cdd1" fill-opacity=".88"><title>16:00 · 30 active minutes</title></rect>
+    <rect x="908" y="592.7" width="12" height="38.3" rx="3" fill="#a9cdd1" fill-opacity=".88"><title>17:00 · 50 active minutes</title></rect>
+    <rect x="929" y="585.0" width="12" height="46.0" rx="3" fill="#e9aa70" fill-opacity=".88"><title>18:00 · 60 active minutes</title></rect>
+    <rect x="950" y="631.0" width="12" height="0.0" rx="3" fill="#a9cdd1" fill-opacity=".18"><title>19:00 · 0 active minutes</title></rect>
+    <rect x="971" y="631.0" width="12" height="0.0" rx="3" fill="#a9cdd1" fill-opacity=".18"><title>20:00 · 0 active minutes</title></rect>
+    <rect x="992" y="631.0" width="12" height="0.0" rx="3" fill="#a9cdd1" fill-opacity=".18"><title>21:00 · 0 active minutes</title></rect>
+  <text x="677" y="657" class="small">06</text>
+  <text x="1010" y="657" text-anchor="end" class="small">22</text>
+  <text x="676" y="696" class="small">LONGEST BUILD STRETCH · 2h 30m</text>
+</svg>

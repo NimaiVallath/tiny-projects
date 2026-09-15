@@ -17,6 +17,7 @@ documentation, and a repeatable quality check.
 | # | Project | What it explores | Built with |
 |---:|---|---|---|
 | 001 | [Commit Canvas](projects/001-commit-canvas) | Deterministic art generated from language | Python, SVG, hashing |
+| 002 | [Time Loom](projects/002-time-loom) | A full-day clock that makes build time and activity rhythms visible | JavaScript, SVG, data visualization |
 
 ## The quality bar
 

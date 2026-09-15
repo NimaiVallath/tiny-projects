@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the catalog and run every project's Python tests."""
+"""Validate the catalog and run every project's dependency-free tests."""
 
 from __future__ import annotations
 
@@ -52,18 +52,18 @@ def validate_catalog() -> list[Path]:
 
 
 def run_tests(project_paths: list[Path]) -> None:
-    test_files = sorted(
-        test_file
-        for project_path in project_paths
-        for test_file in project_path.glob("test_*.py")
-    )
-    if not test_files:
-        raise SystemExit("No project tests were found")
+    test_files = []
+    for project_path in project_paths:
+        files = sorted(project_path.glob("test_*.py")) + sorted(project_path.glob("test_*.mjs"))
+        if not files:
+            raise SystemExit(f"No project tests were found in {project_path.relative_to(ROOT)}")
+        test_files.extend(files)
 
     for test_file in test_files:
         relative = test_file.relative_to(ROOT)
         print(f"Running {relative}", flush=True)
-        result = subprocess.run([sys.executable, str(test_file)], cwd=ROOT, check=False)
+        command = [sys.executable, str(test_file)] if test_file.suffix == ".py" else ["node", "--test", str(test_file)]
+        result = subprocess.run(command, cwd=ROOT, check=False)
         if result.returncode:
             raise SystemExit(result.returncode)
 

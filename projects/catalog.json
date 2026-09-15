@@ -8,5 +8,15 @@
     "path": "projects/001-commit-canvas",
     "stack": ["Python", "SVG", "hashing"],
     "status": "complete"
+  },
+  {
+    "id": 2,
+    "slug": "time-loom",
+    "title": "Time Loom",
+    "date": "2026-09-15",
+    "summary": "Turn a plain schedule into a circular story of where a day went and measure uninterrupted build time.",
+    "path": "projects/002-time-loom",
+    "stack": ["JavaScript", "SVG", "data visualization"],
+    "status": "complete"
   }
 ]
