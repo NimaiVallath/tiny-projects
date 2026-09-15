@@ -39,8 +39,16 @@ businesses, and projects whose only purpose is producing a commit.
 6. Run `python3 scripts/check.py` and any project-specific checks.
 7. Review the complete diff for secrets, generated clutter, and weak explanations.
 8. Update the catalog and root README only after the project is complete.
-9. Create one descriptive commit such as `feat(project-002): add <name>`.
-10. Push only after all checks pass.
+9. Work on a short-lived project branch. Commit each independently meaningful,
+   verified milestone as it is completed. One commit is right for a very small
+   change; two to four may be right when the work has distinct, reviewable steps.
+   There is no commit quota. Examples include a tested data model, a working
+   renderer with demo, and a substantive accessibility or usability refinement.
+   Run focused checks before each commit and the full repository checks before
+   integrating the finished project. Do not commit incomplete or failing work.
+10. Before integrating, fetch `origin/main` again. If it moved during the run,
+    stop without merging or pushing. Otherwise, fast-forward `main` to the
+    finished branch, push `main` normally, and report the actual commits made.
 
 If a strong project cannot be completed, improve an existing project in a
 substantive way or leave the repository unchanged and explain why. Never create
@@ -49,7 +57,9 @@ an empty, cosmetic-only, or backdated commit.
 ## Git and safety rules
 
 - Pull with fast-forward only before starting.
-- Never force-push, rewrite history, delete branches, or modify existing tags.
+- Never force-push, rewrite history, delete user-owned branches, or modify
+  existing tags. Only a temporary branch created by the current run may be
+  deleted after it has been fully merged into `main` and pushed.
 - Do not commit credentials, personal data, `.env` files, build caches, or vendored
   dependencies.
 - Do not add network services, paid APIs, analytics, or telemetry without explicit
