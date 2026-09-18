@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 
-import { analyze, parseJsonl, percentile } from './latency_lantern.mjs';
+import { analyze, parseJsonl, percentile, renderHtml } from './latency_lantern.mjs';
 
 const scriptPath = fileURLToPath(new URL('./latency_lantern.mjs', import.meta.url));
 const samplePath = fileURLToPath(new URL('./examples/fictional-requests.jsonl', import.meta.url));
@@ -68,6 +68,35 @@ test('CLI emits JSON and writes an explicit output file', async () => {
     const fileRun = spawnSync(process.execPath, [scriptPath, samplePath, '--json', output], { encoding: 'utf8' });
     assert.equal(fileRun.status, 0, fileRun.stderr);
     assert.equal(JSON.parse(await readFile(output, 'utf8')).summary.routes, 3);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('HTML report is semantic, self-contained, and escapes source data', async () => {
+  const entries = parseJsonl(await readFile(samplePath, 'utf8'));
+  const report = analyze(entries.map((entry) => (
+    entry.route === '/api/profile' ? { ...entry, route: '/api/<profile>' } : entry
+  )));
+  const html = renderHtml(report, '<production & test>');
+  assert.match(html, /<!doctype html>/);
+  assert.match(html, /<caption>/);
+  assert.match(html, /scope="col"/);
+  assert.match(html, /&lt;production &amp; test&gt;/);
+  assert.match(html, /\/api\/&lt;profile&gt;/);
+  assert.doesNotMatch(html, /<script|https?:\/\//);
+});
+
+test('CLI writes a standalone HTML report', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'latency-lantern-html-'));
+  try {
+    const output = join(directory, 'report.html');
+    const run = spawnSync(process.execPath, [scriptPath, samplePath, '--html', output], { encoding: 'utf8' });
+    assert.equal(run.status, 0, run.stderr);
+    const html = await readFile(output, 'utf8');
+    assert.match(html, /Latency Lantern/);
+    assert.match(html, /GET<\/code> \/api\/search/);
+    assert.match(html, /33\.3% server errors/);
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

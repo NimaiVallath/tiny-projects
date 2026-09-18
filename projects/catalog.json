@@ -18,5 +18,15 @@
     "path": "projects/002-time-loom",
     "stack": ["JavaScript", "SVG", "data visualization"],
     "status": "complete"
+  },
+  {
+    "id": 3,
+    "slug": "latency-lantern",
+    "title": "Latency Lantern",
+    "date": "2026-09-17",
+    "summary": "Reveal slow tails, server errors, and route-specific anomalies in newline-delimited request logs.",
+    "path": "projects/003-latency-lantern",
+    "stack": ["JavaScript", "HTML", "robust statistics"],
+    "status": "complete"
   }
 ]
