@@ -31,6 +31,8 @@ Each nonblank input line is one JSON object:
 The included log is fictional. Malformed lines fail with their source line number
 rather than being silently dropped. The HTML output escapes log-derived text and
 contains its own styles, so it works offline without scripts, fonts, or telemetry.
+Output and input paths must differ, preventing a mistyped command from replacing
+the source log.
 
 ## Decisions behind the diagnostics
 

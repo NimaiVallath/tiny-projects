@@ -1,6 +1,6 @@
 import { strict as assert } from 'node:assert';
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { copyFile, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -57,6 +57,18 @@ test('zero-variance baseline still catches a lone slow request', () => {
   assert.equal(report.summary.outlier_count, 1);
 });
 
+test('summary orders timestamps by instant rather than timezone text', () => {
+  const base = { method: 'GET', route: '/x', duration_ms: 10, status: 200 };
+  const laterWithEarlierClockText = '2026-09-17T10:00:00-05:00';
+  const earlierWithLaterClockText = '2026-09-17T14:30:00Z';
+  const report = analyze([
+    { ...base, timestamp: laterWithEarlierClockText },
+    { ...base, timestamp: earlierWithLaterClockText },
+  ]);
+  assert.equal(report.summary.first_timestamp, earlierWithLaterClockText);
+  assert.equal(report.summary.last_timestamp, laterWithEarlierClockText);
+});
+
 test('CLI emits JSON and writes an explicit output file', async () => {
   const stdoutRun = spawnSync(process.execPath, [scriptPath, samplePath], { encoding: 'utf8' });
   assert.equal(stdoutRun.status, 0, stdoutRun.stderr);
@@ -97,6 +109,21 @@ test('CLI writes a standalone HTML report', async () => {
     assert.match(html, /Latency Lantern/);
     assert.match(html, /GET<\/code> \/api\/search/);
     assert.match(html, /33\.3% server errors/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('CLI refuses to overwrite its input log', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'latency-lantern-safety-'));
+  try {
+    const input = join(directory, 'requests.jsonl');
+    await copyFile(samplePath, input);
+    const before = await readFile(input, 'utf8');
+    const run = spawnSync(process.execPath, [scriptPath, input, '--html', input], { encoding: 'utf8' });
+    assert.equal(run.status, 1);
+    assert.match(run.stderr, /input and output paths must differ/);
+    assert.equal(await readFile(input, 'utf8'), before);
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

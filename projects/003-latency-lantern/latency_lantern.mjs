@@ -2,7 +2,7 @@
 /** Robust, dependency-free diagnostics for newline-delimited request logs. */
 
 import { readFile, writeFile } from 'node:fs/promises';
-import { basename } from 'node:path';
+import { basename, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const REQUIRED_FIELDS = ['timestamp', 'method', 'route', 'duration_ms', 'status'];
@@ -119,6 +119,9 @@ export function analyze(entries) {
 
   const durations = entries.map(({ duration_ms }) => duration_ms);
   const errorCount = entries.filter(({ status }) => status >= 500).length;
+  const timestamps = entries
+    .map(({ timestamp }) => timestamp)
+    .sort((a, b) => Date.parse(a) - Date.parse(b));
   return {
     summary: {
       requests: entries.length,
@@ -128,8 +131,8 @@ export function analyze(entries) {
       error_count: errorCount,
       error_rate: rounded(errorCount / entries.length * 100),
       outlier_count: routes.reduce((sum, route) => sum + route.outlier_count, 0),
-      first_timestamp: entries.map(({ timestamp }) => timestamp).sort()[0],
-      last_timestamp: entries.map(({ timestamp }) => timestamp).sort().at(-1),
+      first_timestamp: timestamps[0],
+      last_timestamp: timestamps.at(-1),
     },
     routes,
   };
@@ -260,10 +263,13 @@ async function main() {
     return;
   }
   try {
+    if (validFormat && !args[2]) throw new Error(`${args[1]} requires an output path`);
+    if (validFormat && resolve(args[0]) === resolve(args[2])) {
+      throw new Error('input and output paths must differ');
+    }
     const report = analyze(parseJsonl(await readFile(args[0], 'utf8')));
     const json = `${JSON.stringify(report, null, 2)}\n`;
     if (validFormat) {
-      if (!args[2]) throw new Error(`${args[1]} requires an output path`);
       const output = args[1] === '--json' ? json : renderHtml(report, basename(args[0]));
       await writeFile(args[2], output, 'utf8');
       console.log(`Analyzed ${report.summary.requests} requests across ${report.summary.routes} routes`);
