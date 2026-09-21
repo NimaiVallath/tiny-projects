@@ -3,6 +3,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from contrast_compass import (
@@ -12,12 +13,14 @@ from contrast_compass import (
     parse_hex,
     parse_palette,
     relative_luminance,
+    render_html,
 )
 
 
 PROJECT = Path(__file__).resolve().parent
 SCRIPT = PROJECT / "contrast_compass.py"
 SAMPLE = PROJECT / "examples" / "fictional-palette.json"
+PREVIEW = PROJECT / "examples" / "report-preview.svg"
 
 
 class ColorMathTests(unittest.TestCase):
@@ -88,6 +91,43 @@ class PaletteTests(unittest.TestCase):
             self.assertEqual(run.returncode, 1)
             self.assertIn("input and output paths must differ", run.stderr)
             self.assertEqual(input_path.read_text(encoding="utf-8"), original)
+
+    def test_html_report_is_semantic_self_contained_and_escapes_names(self):
+        palette = parse_palette(SAMPLE.read_text(encoding="utf-8"))
+        palette["title"] = "<Signal & Garden>"
+        palette["pairs"][0]["role"] = "Primary <body>"
+        rendered = render_html(analyze_palette(palette), "<palette>.json")
+        self.assertIn("<!doctype html>", rendered)
+        self.assertIn('aria-label="Audit summary"', rendered)
+        self.assertIn("&lt;Signal &amp; Garden&gt;", rendered)
+        self.assertIn("Primary &lt;body&gt;", rendered)
+        self.assertNotIn("<script", rendered)
+        self.assertNotIn("https://", rendered)
+
+    def test_cli_writes_standalone_html_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "report.html"
+            run = subprocess.run(
+                [sys.executable, str(SCRIPT), str(SAMPLE), "--html", str(output)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(run.returncode, 0, run.stderr)
+            rendered = output.read_text(encoding="utf-8")
+            self.assertIn("Contrast Compass", rendered)
+            self.assertIn("#5E6F8C", rendered)
+            self.assertIn("<strong>2</strong><span>adjustments proposed", rendered)
+
+    def test_checked_in_preview_is_accessible_and_matches_sample_repairs(self):
+        root = ET.parse(PREVIEW).getroot()
+        namespace = {"svg": "http://www.w3.org/2000/svg"}
+        self.assertEqual(root.attrib["role"], "img")
+        self.assertIsNotNone(root.find("svg:title", namespace))
+        self.assertIsNotNone(root.find("svg:desc", namespace))
+        source = PREVIEW.read_text(encoding="utf-8")
+        self.assertIn("#5E6F8C", source)
+        self.assertIn("#527664", source)
 
 
 if __name__ == "__main__":

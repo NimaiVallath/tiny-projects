@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="title description">
+  <title id="title">Contrast Compass report for the fictional Signal Garden palette</title>
+  <desc id="description">An accessibility report showing six palette pairings, four passes, and two suggested lightness repairs.</desc>
+  <defs>
+    <linearGradient id="wash" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dfe3ff"/>
+      <stop offset="0.62" stop-color="#f7f4ed"/>
+    </linearGradient>
+    <style>
+      .sans{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif}.serif{font-family:Georgia,serif}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.ink{fill:#172033}.muted{fill:#667085}.label{font-size:14px;font-weight:700;letter-spacing:2px}.value{font-size:34px;font-weight:700}.small{font-size:15px}.role{font-size:20px;font-weight:700}.ratio{font-size:34px;font-weight:700}.line{stroke:#d8d2c5}.card{fill:#fffdf8;stroke:#d8d2c5}.pass{fill:#d9f7e8}.repair{fill:#ffe0dc}
+    </style>
+  </defs>
+  <rect width="1400" height="900" fill="#f7f4ed"/>
+  <rect width="1400" height="420" fill="url(#wash)"/>
+  <text x="70" y="70" class="sans label" fill="#4c4dde">ACCESSIBILITY FIELD REPORT / FICTIONAL-PALETTE.JSON</text>
+  <text x="70" y="163" class="serif ink" font-size="88" font-weight="700" letter-spacing="-5">Contrast Compass</text>
+  <text x="70" y="215" class="sans muted" font-size="22">A map of readable palette pairings and the smallest hue-preserving repairs.</text>
+
+  <g transform="translate(70 270)">
+    <rect width="1260" height="112" class="card"/>
+    <line x1="420" x2="420" y2="112" class="line"/><line x1="840" x2="840" y2="112" class="line"/>
+    <text x="28" y="38" class="sans label muted">PAIRINGS TESTED</text><text x="28" y="83" class="sans value ink">6</text>
+    <text x="448" y="38" class="sans label muted">ALREADY PASS</text><text x="448" y="83" class="sans value ink">4</text>
+    <text x="868" y="38" class="sans label muted">ADJUSTMENTS PROPOSED</text><text x="868" y="83" class="sans value ink">2</text>
+  </g>
+
+  <text x="70" y="438" class="serif ink" font-size="34" font-weight="700">Signal Garden</text>
+  <g transform="translate(70 463)" class="sans small ink">
+    <circle cx="17" cy="17" r="17" fill="#18212F"/><text x="44" y="22">Night</text>
+    <circle cx="177" cy="17" r="17" fill="#F7F2E8" stroke="#d8d2c5"/><text x="204" y="22">Paper</text>
+    <circle cx="337" cy="17" r="17" fill="#E85D5D"/><text x="364" y="22">Coral</text>
+    <circle cx="497" cy="17" r="17" fill="#A8B3C5"/><text x="524" y="22">Mist</text>
+    <circle cx="657" cy="17" r="17" fill="#557A67"/><text x="684" y="22">Moss</text>
+    <circle cx="817" cy="17" r="17" fill="#F4C95D"/><text x="844" y="22">Sun</text>
+  </g>
+
+  <g transform="translate(70 535)">
+    <rect width="400" height="290" class="card"/>
+    <text x="24" y="36" class="mono label muted">01</text><text x="66" y="36" class="sans role ink">Primary body text</text>
+    <rect x="303" y="17" width="72" height="28" rx="14" class="pass"/><text x="339" y="36" text-anchor="middle" class="sans label" fill="#17603b">AAA</text>
+    <rect x="24" y="64" width="352" height="112" fill="#F7F2E8" stroke="#d8d2c5"/>
+    <text x="44" y="111" class="serif" font-size="24" font-weight="700" fill="#18212F">Clarity belongs</text><text x="44" y="139" class="serif" font-size="24" font-weight="700" fill="#18212F">in the system.</text>
+    <text x="24" y="215" class="sans label muted">CONTRAST</text><text x="24" y="258" class="sans ratio ink">14.51:1</text><text x="210" y="215" class="sans label muted">TARGET</text><text x="210" y="258" class="sans ratio ink">4.5:1</text>
+  </g>
+
+  <g transform="translate(500 535)">
+    <rect width="400" height="290" class="card"/>
+    <text x="24" y="36" class="mono label muted">04</text><text x="66" y="36" class="sans role ink">Secondary metadata</text>
+    <rect x="258" y="17" width="117" height="28" rx="14" class="repair"/><text x="316" y="36" text-anchor="middle" class="sans label" fill="#8f2f2a">REPAIR</text>
+    <rect x="24" y="64" width="352" height="112" fill="#F7F2E8" stroke="#d8d2c5"/>
+    <text x="44" y="111" class="serif" font-size="24" font-weight="700" fill="#A8B3C5">Clarity belongs</text><text x="44" y="139" class="serif" font-size="24" font-weight="700" fill="#A8B3C5">in the system.</text>
+    <text x="24" y="213" class="sans label muted">ORIGINAL</text><text x="24" y="252" class="sans ratio ink">1.90:1</text>
+    <text x="190" y="213" class="sans label muted">SUGGESTED</text><text x="190" y="247" class="mono" font-size="22" font-weight="700" fill="#5E6F8C">#5E6F8C</text><text x="190" y="271" class="sans small muted">4.56:1 · darker</text>
+  </g>
+
+  <g transform="translate(930 535)">
+    <rect width="400" height="290" class="card"/>
+    <text x="24" y="36" class="mono label muted">05</text><text x="66" y="36" class="sans role ink">Nature label</text>
+    <rect x="258" y="17" width="117" height="28" rx="14" class="repair"/><text x="316" y="36" text-anchor="middle" class="sans label" fill="#8f2f2a">REPAIR</text>
+    <rect x="24" y="64" width="352" height="112" fill="#F7F2E8" stroke="#d8d2c5"/>
+    <text x="44" y="111" class="serif" font-size="24" font-weight="700" fill="#557A67">Clarity belongs</text><text x="44" y="139" class="serif" font-size="24" font-weight="700" fill="#557A67">in the system.</text>
+    <text x="24" y="213" class="sans label muted">ORIGINAL</text><text x="24" y="252" class="sans ratio ink">4.31:1</text>
+    <text x="190" y="213" class="sans label muted">SUGGESTED</text><text x="190" y="247" class="mono" font-size="22" font-weight="700" fill="#527664">#527664</text><text x="190" y="271" class="sans small muted">4.55:1 · darker</text>
+  </g>
+  <text x="70" y="866" class="sans small muted">WCAG 2.2 AA text contrast · status is written, never communicated by color alone</text>
+</svg>

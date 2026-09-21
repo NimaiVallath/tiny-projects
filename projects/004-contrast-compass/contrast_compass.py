@@ -5,8 +5,8 @@ from __future__ import annotations
 
 import argparse
 import colorsys
+import html
 import json
-import math
 import re
 import sys
 from pathlib import Path
@@ -178,6 +178,116 @@ def analyze_palette(palette: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _pair_card(pair: dict[str, Any], index: int) -> str:
+    role = html.escape(pair["role"])
+    foreground_name = html.escape(pair["foreground"])
+    background_name = html.escape(pair["background"])
+    foreground = pair["foreground_hex"]
+    background = pair["background_hex"]
+    size_label = "large text" if pair["size"] == "large" else "normal text"
+    status_class = "pass" if pair["passes_aa"] else "repair"
+    status_text = pair["grade"] if pair["passes_aa"] else "Needs repair"
+    repair = pair["repair"]
+    repair_panel = ""
+    if repair:
+        repair_panel = f"""
+          <div class="repair-note">
+            <div>
+              <span class="label">Suggested foreground</span>
+              <strong>{repair['hex']}</strong>
+              <small>{repair['direction']} by {repair['lightness_shift']} HSL points</small>
+            </div>
+            <div class="mini-sample" style="color:{repair['hex']};background:{background}">
+              Revised sample <b>{repair['ratio']}:1</b>
+            </div>
+          </div>"""
+
+    return f"""<article class="pair-card" aria-labelledby="pair-{index}-title">
+        <div class="pair-heading">
+          <div><span class="index">{index + 1:02d}</span><h3 id="pair-{index}-title">{role}</h3></div>
+          <span class="badge {status_class}">{status_text}</span>
+        </div>
+        <div class="sample" style="color:{foreground};background:{background}" aria-label="Original color sample, contrast ratio {pair['ratio']} to 1">
+          <span>Clarity belongs in the system.</span>
+          <small>{foreground_name} on {background_name}</small>
+        </div>
+        <div class="ratio-row">
+          <div><span class="label">Contrast</span><strong>{pair['ratio']}:1</strong></div>
+          <div><span class="label">Target</span><strong>{pair['aa_threshold']}:1</strong></div>
+          <div><span class="label">Context</span><strong>{size_label}</strong></div>
+        </div>{repair_panel}
+      </article>"""
+
+
+def render_html(report: dict[str, Any], source_name: str = "palette.json") -> str:
+    """Render a self-contained, script-free accessibility report."""
+    summary = report["summary"]
+    percent = round(summary["passing"] / summary["pairs"] * 100)
+    swatches = "\n".join(
+        f"""<li><span class="swatch" style="background:{item['hex']}" aria-hidden="true"></span>
+            <span>{html.escape(item['name'])}<small>{item['hex']}</small></span></li>"""
+        for item in report["colors"]
+    )
+    cards = "\n".join(_pair_card(pair, index) for index, pair in enumerate(report["pairs"]))
+    title = html.escape(report["title"])
+    source = html.escape(source_name)
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Contrast Compass — {title}</title>
+  <style>
+    :root {{ --ink:#172033; --muted:#667085; --paper:#f7f4ed; --card:#fffdf8; --line:#d8d2c5; --indigo:#4c4dde; --mint:#d9f7e8; --mint-ink:#17603b; --rose:#ffe0dc; --rose-ink:#8f2f2a; }}
+    * {{ box-sizing:border-box; }}
+    body {{ margin:0; color:var(--ink); background:var(--paper); font:16px/1.5 ui-sans-serif,system-ui,-apple-system,sans-serif; }}
+    body::before {{ content:""; position:absolute; inset:0 0 auto; height:28rem; pointer-events:none; background:linear-gradient(135deg,#dfe3ff 0%,#f7f4ed 58%); z-index:-1; }}
+    main {{ width:min(1160px,calc(100% - 2rem)); margin:auto; padding:4.5rem 0; }}
+    .eyebrow,.label,.index {{ font-size:.73rem; font-weight:750; letter-spacing:.1em; text-transform:uppercase; }}
+    .eyebrow {{ color:var(--indigo); margin:0 0 1rem; }} h1,h2,h3,p {{ margin-top:0; }}
+    h1 {{ max-width:850px; margin-bottom:1.25rem; font:700 clamp(3.3rem,8vw,7rem)/.87 Georgia,serif; letter-spacing:-.06em; }}
+    .lede {{ max-width:730px; color:#4c5569; font-size:1.1rem; }}
+    .hero {{ display:grid; grid-template-columns:1fr auto; gap:3rem; align-items:end; border-bottom:1px solid var(--line); padding-bottom:3rem; }}
+    .score {{ width:10rem; height:10rem; border-radius:50%; display:grid; place-content:center; text-align:center; background:conic-gradient(var(--indigo) {percent}%,#d8d8e6 0); position:relative; }}
+    .score::after {{ content:""; position:absolute; inset:1rem; border-radius:50%; background:var(--paper); }} .score * {{ position:relative; z-index:1; }}
+    .score strong {{ font:700 2rem/1 Georgia,serif; }} .score span {{ color:var(--muted); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; }}
+    .summary {{ display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--line); background:var(--card); margin:2rem 0 4.5rem; }}
+    .summary div {{ padding:1.3rem; border-right:1px solid var(--line); }} .summary div:last-child {{ border:0; }} .summary strong {{ display:block; font-size:1.8rem; }} .summary span {{ color:var(--muted); }}
+    section > h2 {{ font:700 2rem/1.1 Georgia,serif; }} .section-note {{ color:var(--muted); max-width:680px; }}
+    .palette {{ list-style:none; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:.75rem; margin:1.5rem 0 4.5rem; }}
+    .palette li {{ display:flex; gap:.65rem; align-items:center; min-width:0; }} .palette small {{ display:block; color:var(--muted); font:700 .72rem ui-monospace,SFMono-Regular,monospace; }}
+    .swatch {{ width:2.6rem; height:2.6rem; flex:0 0 auto; border:1px solid #0002; border-radius:50%; }}
+    .pairs {{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }} .pair-card {{ background:var(--card); border:1px solid var(--line); padding:1.25rem; }}
+    .pair-heading,.pair-heading > div,.ratio-row,.repair-note {{ display:flex; align-items:center; }} .pair-heading {{ justify-content:space-between; gap:1rem; }} .pair-heading > div {{ gap:.75rem; }}
+    h3 {{ margin:0; font-size:1rem; }} .index {{ color:var(--muted); }} .badge {{ padding:.28rem .55rem; border-radius:100px; font-size:.72rem; font-weight:800; white-space:nowrap; }}
+    .badge.pass {{ color:var(--mint-ink); background:var(--mint); }} .badge.repair {{ color:var(--rose-ink); background:var(--rose); }}
+    .sample {{ min-height:9rem; margin:1.25rem 0; padding:1.2rem; display:flex; flex-direction:column; justify-content:space-between; border:1px solid #0002; }} .sample span {{ font:700 1.55rem/1.1 Georgia,serif; }} .sample small {{ font-weight:750; }}
+    .ratio-row {{ gap:1rem; justify-content:space-between; }} .ratio-row > div {{ min-width:0; }} .label {{ display:block; color:var(--muted); margin-bottom:.2rem; }} .ratio-row strong {{ font-size:.9rem; }}
+    .repair-note {{ justify-content:space-between; gap:1rem; margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid var(--line); }} .repair-note small {{ display:block; color:var(--muted); }}
+    .mini-sample {{ padding:.8rem; border:1px solid #0002; font-size:.78rem; }} .mini-sample b {{ display:block; }}
+    .method {{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; }} .method article {{ border-top:2px solid var(--indigo); padding-top:1rem; }} .method p,footer {{ color:var(--muted); }}
+    footer {{ display:flex; justify-content:space-between; gap:1rem; margin-top:4.5rem; padding-top:1.25rem; border-top:1px solid var(--line); font-size:.75rem; }}
+    @media (max-width:800px) {{ main{{padding:2.5rem 0}} .hero{{grid-template-columns:1fr}} .score{{width:8rem;height:8rem}} .palette{{grid-template-columns:repeat(2,1fr)}} .pairs{{grid-template-columns:1fr}} .method{{grid-template-columns:1fr}} }}
+    @media print {{ body::before{{display:none}} .pair-card{{break-inside:avoid}} }}
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div><p class="eyebrow">Accessibility field report / {source}</p><h1>Contrast<br>Compass</h1><p class="lede">A map of which palette pairings are ready for readable text—and the smallest hue-preserving lightness shifts for those that are not.</p></div>
+      <div class="score" aria-label="{percent} percent of tested pairs pass"><strong>{percent}%</strong><span>AA ready</span></div>
+    </header>
+    <div class="summary" aria-label="Audit summary"><div><strong>{summary['pairs']}</strong><span>pairings tested</span></div><div><strong>{summary['passing']}</strong><span>already pass</span></div><div><strong>{summary['needing_repair']}</strong><span>adjustments proposed</span></div></div>
+    <section aria-labelledby="palette-heading"><h2 id="palette-heading">{title}</h2><p class="section-note">The source palette stays intact. Repairs change only the foreground lightness of a specific pairing.</p><ul class="palette">{swatches}</ul></section>
+    <section aria-labelledby="pairs-heading"><h2 id="pairs-heading">Pairing audit</h2><p class="section-note">Each declared use is measured against its WCAG 2.2 AA text threshold. Status is always written as text, never communicated by color alone.</p><div class="pairs">{cards}</div></section>
+    <section aria-labelledby="method-heading" style="margin-top:4.5rem"><h2 id="method-heading">How repairs are chosen</h2><div class="method"><article><span class="index">01 / measure</span><p>Convert sRGB channels to relative luminance, then compare the lighter and darker colors.</p></article><article><span class="index">02 / preserve</span><p>Keep foreground hue and saturation fixed while searching all 256 discrete HSL lightness levels.</p></article><article><span class="index">03 / minimize</span><p>Choose the passing color with the smallest lightness shift and verify the rounded hex value again.</p></article></div></section>
+    <footer><span>Generated by Contrast Compass</span><span>Self-contained · script-free · no telemetry</span></footer>
+  </main>
+</body>
+</html>\n"""
+
+
 def _output_path_is_safe(input_path: Path, output_path: Path) -> bool:
     return input_path.resolve() != output_path.resolve()
 
@@ -187,22 +297,29 @@ def main(argv: list[str] | None = None) -> int:
         description="Audit text/background color pairs against WCAG contrast thresholds."
     )
     parser.add_argument("input", type=Path, help="palette JSON file")
-    parser.add_argument("--json", type=Path, help="write structured results instead of printing them")
+    output_group = parser.add_mutually_exclusive_group()
+    output_group.add_argument("--json", type=Path, help="write structured results")
+    output_group.add_argument("--html", type=Path, help="write a standalone visual report")
     args = parser.parse_args(argv)
 
     try:
-        if args.json and not _output_path_is_safe(args.input, args.json):
+        output_path = args.json or args.html
+        if output_path and not _output_path_is_safe(args.input, output_path):
             raise ValueError("input and output paths must differ")
         report = analyze_palette(parse_palette(args.input.read_text(encoding="utf-8")))
-        rendered = json.dumps(report, indent=2) + "\n"
-        if args.json:
-            args.json.write_text(rendered, encoding="utf-8")
+        if output_path:
+            rendered = (
+                json.dumps(report, indent=2) + "\n"
+                if args.json
+                else render_html(report, args.input.name)
+            )
+            output_path.write_text(rendered, encoding="utf-8")
             print(
                 f"Audited {report['summary']['pairs']} pairs; "
                 f"{report['summary']['needing_repair']} need repair"
             )
         else:
-            sys.stdout.write(rendered)
+            sys.stdout.write(json.dumps(report, indent=2) + "\n")
         return 0
     except (OSError, ValueError) as error:
         print(f"Contrast Compass: {error}", file=sys.stderr)

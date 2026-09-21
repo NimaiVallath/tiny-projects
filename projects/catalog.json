@@ -28,5 +28,15 @@
     "path": "projects/003-latency-lantern",
     "stack": ["JavaScript", "HTML", "robust statistics"],
     "status": "complete"
+  },
+  {
+    "id": 4,
+    "slug": "contrast-compass",
+    "title": "Contrast Compass",
+    "date": "2026-09-21",
+    "summary": "Map accessible text pairings in a color system and suggest minimal, hue-preserving lightness repairs.",
+    "path": "projects/004-contrast-compass",
+    "stack": ["Python", "HTML", "accessibility"],
+    "status": "complete"
   }
 ]
