@@ -1,0 +1,19 @@
+{
+  "title": "Signal Garden",
+  "colors": [
+    { "name": "Night", "hex": "#18212F" },
+    { "name": "Paper", "hex": "#F7F2E8" },
+    { "name": "Coral", "hex": "#E85D5D" },
+    { "name": "Mist", "hex": "#A8B3C5" },
+    { "name": "Moss", "hex": "#557A67" },
+    { "name": "Sun", "hex": "#F4C95D" }
+  ],
+  "pairs": [
+    { "role": "Primary body text", "foreground": "Night", "background": "Paper", "size": "normal" },
+    { "role": "Dark-mode body text", "foreground": "Paper", "background": "Night", "size": "normal" },
+    { "role": "Promotional headline", "foreground": "Coral", "background": "Paper", "size": "large" },
+    { "role": "Secondary metadata", "foreground": "Mist", "background": "Paper", "size": "normal" },
+    { "role": "Nature label", "foreground": "Moss", "background": "Paper", "size": "normal" },
+    { "role": "Call-to-action", "foreground": "Night", "background": "Sun", "size": "normal" }
+  ]
+}
