@@ -58,5 +58,15 @@
     "path": "projects/008-covenant-weather",
     "stack": ["JavaScript", "credit analysis", "scenario modeling", "responsive UI"],
     "status": "complete"
+  },
+  {
+    "id": 9,
+    "slug": "volatility-field-lab",
+    "title": "Volatility Field Lab",
+    "date": "2026-09-30",
+    "summary": "Compare rolling, EWMA, and grid-fitted GARCH variance forecasts on a chronological holdout with QLIKE and VaR diagnostics.",
+    "path": "projects/009-volatility-field-lab",
+    "stack": ["JavaScript", "time series", "GARCH", "forecast evaluation"],
+    "status": "complete"
   }
 ]
