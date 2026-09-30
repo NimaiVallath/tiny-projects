@@ -48,5 +48,15 @@
     "path": "projects/007-news-signal-desk",
     "stack": ["JavaScript", "CSV", "event studies", "accessible visualization"],
     "status": "complete"
+  },
+  {
+    "id": 8,
+    "slug": "covenant-weather",
+    "title": "Covenant Weather",
+    "date": "2026-09-30",
+    "summary": "Sweep borrower revenue and floating-rate shocks to see leverage and interest-coverage covenant headroom erode.",
+    "path": "projects/008-covenant-weather",
+    "stack": ["JavaScript", "credit analysis", "scenario modeling", "responsive UI"],
+    "status": "complete"
   }
 ]
