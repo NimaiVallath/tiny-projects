@@ -4,7 +4,7 @@ export const DEFAULT_CASE = Object.freeze({
   minInterestCoverage: 2.5,
 });
 
-export function validateCase(input) {
+function validateCase(input) {
   const fields = Object.keys(DEFAULT_CASE);
   const values = {};
   for (const field of fields) {
@@ -21,7 +21,7 @@ export function validateCase(input) {
   return values;
 }
 
-export function calculateCase(input, { revenueShock = 0, rateShockBps = 0 } = {}) {
+function calculateCase(input, { revenueShock = 0, rateShockBps = 0 } = {}) {
   const borrower = validateCase(input);
   if (!Number.isFinite(revenueShock) || revenueShock < -1 || revenueShock > 1) throw new Error("Revenue shock must be from −100% to +100%.");
   if (!Number.isFinite(rateShockBps) || rateShockBps < 0 || rateShockBps > 3000) throw new Error("Rate shock must be from 0 to 3,000 basis points.");
@@ -42,7 +42,7 @@ export function calculateCase(input, { revenueShock = 0, rateShockBps = 0 } = {}
   };
 }
 
-export function buildSensitivity(input, { revenueShocks = [-0.4, -0.3, -0.2, -0.1, 0], rateShocksBps = [0, 100, 200, 300, 400] } = {}) {
+function buildSensitivity(input, { revenueShocks = [-0.4, -0.3, -0.2, -0.1, 0], rateShocksBps = [0, 100, 200, 300, 400] } = {}) {
   const borrower = validateCase(input);
   return {
     revenueShocks: [...revenueShocks],
@@ -55,7 +55,7 @@ export function buildSensitivity(input, { revenueShocks = [-0.4, -0.3, -0.2, -0.
   };
 }
 
-export function describeRisk(result) {
+function describeRisk(result) {
   if (result.leverageBreach && result.coverageBreach) return "Both limits breached";
   if (result.leverageBreach) return "Leverage limit breached";
   if (result.coverageBreach) return "Coverage limit breached";
@@ -63,3 +63,5 @@ export function describeRisk(result) {
   const coverageNear = result.coverageHeadroom !== null && result.coverageHeadroom < 0.5;
   return leverageNear || coverageNear ? "Within limits · thin headroom" : "Within both limits";
 }
+
+globalThis.CovenantWeather = { DEFAULT_CASE, validateCase, calculateCase, buildSensitivity, describeRisk };

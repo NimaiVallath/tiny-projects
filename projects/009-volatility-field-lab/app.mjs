@@ -1,4 +1,4 @@
-import { annualizedVolatility, evaluateReturns, makeDemoCsv, parseReturnsCsv } from "./volatility_lab.mjs";
+const { annualizedVolatility, evaluateReturns, makeDemoCsv, parseReturnsCsv } = globalThis.VolatilityFieldLab;
 
 const $ = (selector) => document.querySelector(selector);
 const models = [

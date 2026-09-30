@@ -1,6 +1,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { analyze, parseCsv, rankCorrelation, readArticles, readPrices } from "./news_signal.mjs";
+import { existsSync, readFileSync } from "node:fs";
+import "./news_signal.mjs";
+const { analyze, parseCsv, rankCorrelation, readArticles, readPrices } = globalThis.NewsSignalDesk;
+
+test("standalone page loads local classic scripts in dependency order", () => {
+  const html = readFileSync(new URL("./index.html", import.meta.url), "utf8");
+  const scripts = [...html.matchAll(/<script\b[^>]*src="([^"]+)"[^>]*>/g)].map((match) => match[1]);
+  assert.deepEqual(scripts, ["news_signal.mjs", "app.mjs"]);
+  for (const script of scripts) assert.ok(existsSync(new URL(script, new URL("./", import.meta.url))));
+  assert.doesNotMatch(html, /type="module"/);
+});
 
 test("CSV handles commas, quotes, CRLF, and rejects malformed rows", () => {
   assert.deepEqual(parseCsv('name,note\r\nA,"said ""yes"", then left"\r\n'), [{ name: "A", note: 'said "yes", then left' }]);

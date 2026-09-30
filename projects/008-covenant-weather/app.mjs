@@ -1,4 +1,4 @@
-import { buildSensitivity, calculateCase, DEFAULT_CASE, describeRisk, validateCase } from "./covenant_weather.mjs";
+const { buildSensitivity, calculateCase, DEFAULT_CASE, validateCase } = globalThis.CovenantWeather;
 
 const $ = (selector) => document.querySelector(selector);
 const fields = Object.keys(DEFAULT_CASE);

@@ -1,6 +1,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildSensitivity, calculateCase, DEFAULT_CASE, describeRisk, validateCase } from "./covenant_weather.mjs";
+import { existsSync, readFileSync } from "node:fs";
+import "./covenant_weather.mjs";
+const { buildSensitivity, calculateCase, DEFAULT_CASE, describeRisk, validateCase } = globalThis.CovenantWeather;
+
+test("standalone page loads local classic scripts in dependency order", () => {
+  const html = readFileSync(new URL("./index.html", import.meta.url), "utf8");
+  const scripts = [...html.matchAll(/<script\b[^>]*src="([^"]+)"[^>]*>/g)].map((match) => match[1]);
+  assert.deepEqual(scripts, ["covenant_weather.mjs", "app.mjs"]);
+  for (const script of scripts) assert.ok(existsSync(new URL(script, new URL("./", import.meta.url))));
+  assert.doesNotMatch(html, /type="module"/);
+});
 
 test("baseline reproduces the stated net leverage and interest coverage math", () => {
   const result = calculateCase(DEFAULT_CASE);

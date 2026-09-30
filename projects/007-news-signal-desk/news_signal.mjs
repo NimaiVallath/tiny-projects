@@ -1,4 +1,4 @@
-export function parseCsv(source) {
+function parseCsv(source) {
   const rows = [];
   let row = [], cell = "", quoted = false;
   for (let i = 0; i < source.length; i += 1) {
@@ -30,7 +30,7 @@ const validDate = (value) => {
   const date = new Date(`${value}T00:00:00Z`);
   return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
 };
-export function readArticles(csv) {
+function readArticles(csv) {
   const rows = parseCsv(csv);
   for (const key of ["date", "ticker", "headline", "sentiment"]) if (!(key in rows[0])) throw new Error(`Articles need a '${key}' column.`);
   return rows.map((row, index) => {
@@ -41,7 +41,7 @@ export function readArticles(csv) {
   });
 }
 
-export function readPrices(csv) {
+function readPrices(csv) {
   const rows = parseCsv(csv);
   for (const key of ["date", "ticker", "close"]) if (!(key in rows[0])) throw new Error(`Prices need a '${key}' column.`);
   const seen = new Set();
@@ -55,7 +55,7 @@ export function readPrices(csv) {
   return prices.sort((a, b) => a.ticker.localeCompare(b.ticker) || a.date.localeCompare(b.date));
 }
 
-export function analyze(articles, prices, horizons = [1, 5]) {
+function analyze(articles, prices, horizons = [1, 5]) {
   const byTicker = new Map();
   for (const price of prices) {
     if (!byTicker.has(price.ticker)) byTicker.set(price.ticker, []);
@@ -84,7 +84,7 @@ export function analyze(articles, prices, horizons = [1, 5]) {
   return { events, buckets, summary: { articles: articles.length, matched1d: matched.length, unmatched1d: articles.length - matched.length, tickers: new Set(articles.map((row) => row.ticker)).size } };
 }
 
-export function rankCorrelation(pairs) {
+function rankCorrelation(pairs) {
   const usable = pairs.filter(([a, b]) => Number.isFinite(a) && Number.isFinite(b));
   if (usable.length < 2) return null;
   const ranks = (column) => {
@@ -104,3 +104,5 @@ export function rankCorrelation(pairs) {
   const denominator = Math.sqrt(x.reduce((sum, value) => sum + (value - mx) ** 2, 0) * y.reduce((sum, value) => sum + (value - my) ** 2, 0));
   return denominator === 0 ? null : covariance / denominator;
 }
+
+globalThis.NewsSignalDesk = { parseCsv, readArticles, readPrices, analyze, rankCorrelation };

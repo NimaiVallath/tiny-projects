@@ -4,7 +4,7 @@ const WINDOW = 20;
 const ALPHAS = [0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.15, 0.18, 0.2];
 const BETAS = [0.7, 0.75, 0.8, 0.84, 0.88, 0.9, 0.92, 0.94, 0.96, 0.97];
 
-export function parseReturnsCsv(source) {
+function parseReturnsCsv(source) {
   const rows = [];
   let cells = [], field = "", quoted = false;
   for (let i = 0; i < source.length; i += 1) {
@@ -48,7 +48,7 @@ function meanSquare(values) {
   return mean(values.map((value) => value ** 2));
 }
 
-export function fitGarch(returns) {
+function fitGarch(returns) {
   if (!Array.isArray(returns) || returns.length < 20 || returns.some((value) => !Number.isFinite(value)))
     throw new Error("GARCH fitting needs at least 20 finite training returns.");
   const longRunVariance = Math.max(meanSquare(returns), FLOOR);
@@ -83,7 +83,7 @@ function rollingForecast(returns, targetIndex) {
   return Math.max(meanSquare(observations), FLOOR);
 }
 
-export function evaluateReturns(rows) {
+function evaluateReturns(rows) {
   if (!Array.isArray(rows) || rows.length < 40) throw new Error("At least 40 dated returns are required.");
   const values = rows.map((row) => typeof row === "number" ? row : row.value);
   if (values.some((value) => !Number.isFinite(value))) throw new Error("Returns must all be finite numbers.");
@@ -128,11 +128,11 @@ export function evaluateReturns(rows) {
   };
 }
 
-export function annualizedVolatility(varianceValue) {
+function annualizedVolatility(varianceValue) {
   return Math.sqrt(Math.max(varianceValue, 0)) * Math.sqrt(252) * 100;
 }
 
-export function makeDemoCsv() {
+function makeDemoCsv() {
   const lines = ["date,return_pct"];
   const date = new Date("2025-01-02T12:00:00Z");
   for (let index = 0; index < 120; index += 1) {
@@ -144,3 +144,5 @@ export function makeDemoCsv() {
   }
   return lines.join("\n");
 }
+
+globalThis.VolatilityFieldLab = { parseReturnsCsv, fitGarch, evaluateReturns, annualizedVolatility, makeDemoCsv };

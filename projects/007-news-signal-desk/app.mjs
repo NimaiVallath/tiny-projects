@@ -1,4 +1,4 @@
-import { analyze, rankCorrelation, readArticles, readPrices } from "./news_signal.mjs";
+const { analyze, rankCorrelation, readArticles, readPrices } = globalThis.NewsSignalDesk;
 
 const demoArticles = `date,ticker,headline,sentiment
 2026-02-02,ALFA,Quarterly outlook raised after strong renewals,0.82

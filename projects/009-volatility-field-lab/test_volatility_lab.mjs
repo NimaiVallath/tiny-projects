@@ -1,8 +1,18 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { annualizedVolatility, evaluateReturns, fitGarch, makeDemoCsv, parseReturnsCsv } from "./volatility_lab.mjs";
+import { existsSync, readFileSync } from "node:fs";
+import "./volatility_lab.mjs";
+const { annualizedVolatility, evaluateReturns, fitGarch, makeDemoCsv, parseReturnsCsv } = globalThis.VolatilityFieldLab;
 
 const sample = parseReturnsCsv(makeDemoCsv());
+
+test("standalone page loads local classic scripts in dependency order", () => {
+  const html = readFileSync(new URL("./index.html", import.meta.url), "utf8");
+  const scripts = [...html.matchAll(/<script\b[^>]*src="([^"]+)"[^>]*>/g)].map((match) => match[1]);
+  assert.deepEqual(scripts, ["volatility_lab.mjs", "app.mjs"]);
+  for (const script of scripts) assert.ok(existsSync(new URL(script, new URL("./", import.meta.url))));
+  assert.doesNotMatch(html, /type="module"/);
+});
 
 test("demo is deterministic and explicitly shaped into changing volatility regimes", () => {
   assert.equal(makeDemoCsv(), makeDemoCsv());
