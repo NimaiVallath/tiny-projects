@@ -38,5 +38,15 @@
     "path": "projects/004-contrast-compass",
     "stack": ["Python", "HTML", "accessibility"],
     "status": "complete"
+  },
+  {
+    "id": 7,
+    "slug": "news-signal-desk",
+    "title": "News Signal Desk",
+    "date": "2026-09-30",
+    "summary": "Join model-scored financial headlines to issuer price histories and inspect event windows, missing coverage, and score-return association.",
+    "path": "projects/007-news-signal-desk",
+    "stack": ["JavaScript", "CSV", "event studies", "accessible visualization"],
+    "status": "complete"
   }
 ]

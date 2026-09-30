@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f4ef"><title>News Signal Desk</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead"><div><p class="eyebrow">LOCAL RESEARCH / EVENT STUDY</p><h1>News Signal Desk</h1><p class="dek">A headline is a hypothesis. See what the issuer's price did next.</p></div><button id="demo" class="quiet-button">Load demo</button></header>
+    <section class="inputs" aria-label="Import research data">
+      <label class="file-card"><span class="file-top"><strong>1 · Model-scored articles</strong><span id="article-name">Paste CSV or choose file</span></span><input id="article-file" type="file" accept=".csv,text/csv" aria-label="Choose article sentiment CSV"><textarea id="articles" spellcheck="false" aria-label="Article CSV"></textarea></label>
+      <label class="file-card"><span class="file-top"><strong>2 · Issuer closing prices</strong><span id="price-name">Paste CSV or choose file</span></span><input id="price-file" type="file" accept=".csv,text/csv" aria-label="Choose price history CSV"><textarea id="prices" spellcheck="false" aria-label="Closing prices CSV"></textarea></label>
+      <div class="actions"><button id="analyze" class="primary-button">Analyze event windows <span aria-hidden="true">↗</span></button><p>Runs in this tab only · no upload · fictional demo data</p></div>
+    </section>
+    <p id="error" class="error" role="alert" hidden></p>
+    <section id="report" aria-live="polite" hidden>
+      <div class="section-heading"><div><p class="eyebrow">READ THE WINDOW, NOT JUST THE SCORE</p><h2>What happened after publication?</h2></div><span class="method-tag">Trading sessions · close to close</span></div>
+      <div id="summary" class="summary-cards"></div>
+      <div class="analysis-grid"><section class="panel"><h3>Next-session return by model score</h3><p class="caption">Buckets: below −0.20 · between −0.20 and +0.20 · above +0.20</p><div id="buckets" class="bucket-list"></div></section><section class="panel correlation"><h3>Score ↔ next-session return</h3><p class="caption">Spearman rank correlation · descriptive only</p><div id="correlation" class="correlation-value"></div><p id="corr-note" class="caption"></p></section></div>
+      <section class="panel events"><div class="table-heading"><div><h3>Event ledger</h3><p class="caption">Each row keeps its headline, supplied score, anchor close, and both forward windows.</p></div><label class="filter">Issuer <select id="ticker-filter" aria-label="Filter events by issuer"><option value="*">All issuers</option></select></label></div><div class="table-scroll"><table><thead><tr><th>Published</th><th>Issuer</th><th>Headline</th><th>Score</th><th>Anchor close</th><th>Next session</th><th>5 sessions</th></tr></thead><tbody id="event-rows"></tbody></table></div></section>
+      <p class="disclaimer">Fictional sample. Association is not causation; returns may include unrelated news. No trading recommendation.</p>
+    </section>
+    <footer><span>News Signal Desk <span aria-hidden="true">·</span> local-first</span><span>Scores are inputs, not model outputs.</span></footer>
+  </main>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>
