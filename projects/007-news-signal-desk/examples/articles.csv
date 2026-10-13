@@ -1,0 +1,9 @@
+date,ticker,headline,sentiment
+2026-02-02,ALFA,Quarterly outlook raised after strong renewals,0.82
+2026-02-04,ALFA,Factory delay prompts cautious guidance,-0.71
+2026-02-06,ALFA,Board approves expanded repurchase,0.54
+2026-02-03,BRAVO,New contract adds multi-year backlog,0.63
+2026-02-05,BRAVO,Regulator opens review of billing practices,-0.88
+2026-02-09,BRAVO,Company reaffirms annual outlook,0.21
+2026-02-10,CHARLIE,Debt refinancing completed ahead of schedule,0.74
+2026-02-12,CHARLIE,Customer concentration remains a concern,-0.42

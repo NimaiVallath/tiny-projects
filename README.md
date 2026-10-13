@@ -20,6 +20,9 @@ documentation, and a repeatable quality check.
 | 002 | [Time Loom](projects/002-time-loom) | A full-day clock that makes build time and activity rhythms visible | JavaScript, SVG, data visualization |
 | 003 | [Latency Lantern](projects/003-latency-lantern) | Robust, route-aware diagnostics for request logs | JavaScript, HTML, robust statistics |
 | 004 | [Contrast Compass](projects/004-contrast-compass) | Accessible palette pairings with minimal, hue-preserving repairs | Python, HTML, accessibility |
+| 007 | [News Signal Desk](projects/007-news-signal-desk) | Join model-scored financial news to issuer returns and inspect event windows, coverage, and score-return association | JavaScript, CSV, event studies |
+| 008 | [Covenant Weather](projects/008-covenant-weather) | Sweep revenue and floating-rate shocks to see covenant headroom change | JavaScript, credit analysis, scenario modeling |
+| 009 | [Volatility Field Lab](projects/009-volatility-field-lab) | Compare rolling, EWMA, and GARCH forecasts on a time-ordered holdout | JavaScript, time series, GARCH, forecast evaluation |
 
 ## The quality bar
 

@@ -38,5 +38,35 @@
     "path": "projects/004-contrast-compass",
     "stack": ["Python", "HTML", "accessibility"],
     "status": "complete"
+  },
+  {
+    "id": 7,
+    "slug": "news-signal-desk",
+    "title": "News Signal Desk",
+    "date": "2026-09-30",
+    "summary": "Join model-scored financial headlines to issuer price histories and inspect event windows, missing coverage, and score-return association.",
+    "path": "projects/007-news-signal-desk",
+    "stack": ["JavaScript", "CSV", "event studies", "accessible visualization"],
+    "status": "complete"
+  },
+  {
+    "id": 8,
+    "slug": "covenant-weather",
+    "title": "Covenant Weather",
+    "date": "2026-09-30",
+    "summary": "Sweep borrower revenue and floating-rate shocks to see leverage and interest-coverage covenant headroom erode.",
+    "path": "projects/008-covenant-weather",
+    "stack": ["JavaScript", "credit analysis", "scenario modeling", "responsive UI"],
+    "status": "complete"
+  },
+  {
+    "id": 9,
+    "slug": "volatility-field-lab",
+    "title": "Volatility Field Lab",
+    "date": "2026-09-30",
+    "summary": "Compare rolling, EWMA, and grid-fitted GARCH variance forecasts on a chronological holdout with QLIKE and VaR diagnostics.",
+    "path": "projects/009-volatility-field-lab",
+    "stack": ["JavaScript", "time series", "GARCH", "forecast evaluation"],
+    "status": "complete"
   }
 ]
