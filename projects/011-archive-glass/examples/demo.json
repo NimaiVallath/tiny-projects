@@ -1,0 +1,16 @@
+{
+  "archive": "weekend.zip",
+  "format": "zip",
+  "entries_scanned": 2,
+  "declared_bytes_scanned": 37,
+  "incomplete": false,
+  "findings": [
+    {
+      "code": "unsafe-path",
+      "severity": "error",
+      "path": "../outside.txt",
+      "message": "Path is absolute, empty, or traverses above the extraction root."
+    }
+  ],
+  "assessment": "blocked"
+}

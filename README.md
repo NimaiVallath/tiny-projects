@@ -23,6 +23,7 @@ documentation, and a repeatable quality check.
 | 007 | [News Signal Desk](projects/007-news-signal-desk) | Join model-scored financial news to issuer returns and inspect event windows, coverage, and score-return association | JavaScript, CSV, event studies |
 | 008 | [Covenant Weather](projects/008-covenant-weather) | Sweep revenue and floating-rate shocks to see covenant headroom change | JavaScript, credit analysis, scenario modeling |
 | 009 | [Volatility Field Lab](projects/009-volatility-field-lab) | Compare rolling, EWMA, and GARCH forecasts on a time-ordered holdout | JavaScript, time series, GARCH, forecast evaluation |
+| 011 | [Archive Glass](projects/011-archive-glass) | Audit ZIP and TAR paths, links, special files, and expansion budgets before extraction | Python, archive formats, security tooling |
 
 ## The quality bar
 

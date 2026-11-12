@@ -68,5 +68,15 @@
     "path": "projects/009-volatility-field-lab",
     "stack": ["JavaScript", "time series", "GARCH", "forecast evaluation"],
     "status": "complete"
+  },
+  {
+    "id": 11,
+    "slug": "archive-glass",
+    "title": "Archive Glass",
+    "date": "2026-11-12",
+    "summary": "Audit ZIP and uncompressed TAR metadata for traversal paths, link escapes, conflicting paths, special files, and scan-budget risks without extracting payloads.",
+    "path": "projects/011-archive-glass",
+    "stack": ["Python", "archive formats", "security tooling", "CLI"],
+    "status": "complete"
   }
 ]
